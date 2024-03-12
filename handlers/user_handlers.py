@@ -54,7 +54,7 @@ async def process_start_command(message: Message):
     users_db[message.from_user.id] = [name, message.from_user.username]
     users_items[message.from_user.id] = ['rub', {}]
     await message.answer(LEXICON["/start"])
-    await message.answer('Выберите необходимую валюту для цен товара', reply_markup=create_currency_keyboard(*LEXICON_CURRENCY.keys()))
+    # await message.answer('Выберите необходимую валюту для цен товара', reply_markup=create_currency_keyboard(*LEXICON_CURRENCY.keys()))
     await save_users_db()
     await save_users_items()
 
@@ -90,7 +90,7 @@ async def get_list_of_items(message: Message):
         for dictionary in items:
             keys.extend(int(key) for key in dictionary.keys())
         for i in keys.copy():
-            await main_search(cur, i, user_id)
+            await main_search(i, user_id)
     max_itms = users_max_items[user_id]
     used_itms = len(users_items[user_id][1])
     await message.answer(f'Всего слотов: {max_itms}\n'
@@ -121,7 +121,7 @@ async def add_item_process(message: Message):
     else:
         if len(users_items[id_][1]) < users_max_items[id_]\
                 or int(message.text) in users_items[id_][1]:
-            await main_search(users_items[id_][0], int(message.text), id_)
+            await main_search(int(message.text), id_)
         else:
             bot_info = await bot.get_me()
             bot_username = bot_info.username
@@ -129,7 +129,7 @@ async def add_item_process(message: Message):
                                  f" пригласите друга!\nПросто отправьте ему это сообщение с вашей реферальной ссылкой:")
             await message.answer(f"Привет!\n"
                                  f"Я хочу поделиться с тобой полезным ботом, который помогает выгодно "
-                                 f"покупать на Wildberries (он присылает уведомления, "
+                                 f"покупать на ozon (он присылает уведомления, "
                                  f"когда снижается цена на выбранный тобою товар!)\n\n"
                                  f"Чтобы присоединиться просто перейди по ссылке и отправь боту "
                                  f"артикул интересующего тебя товара:\n"

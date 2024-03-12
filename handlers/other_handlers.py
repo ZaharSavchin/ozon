@@ -17,10 +17,10 @@ async def other(message: Message):
         users_max_items[message.from_user.id] = 1
         await save_users_max_items()
     caption = 'Это не похоже на артикул товара!\n' \
-              'Зайдите, пожалуйста, на сайт или приложение wildberries, ' \
-              'скопируйте артикул товара (как на фото) и отправьте его боту.'
+              'Зайдите, пожалуйста, на сайт или приложение ozon, ' \
+              'скопируйте артикул товара и отправьте его боту.'
     photo_url = 'https://github.com/ZaharSavchin/wb/blob/main/photos/image_2023-05-15_11-02-18.png?raw=true'
 
     await message.answer(text=caption)
-    await message.answer_photo(photo=photo_url)
+    # await message.answer_photo(photo=photo_url)
 

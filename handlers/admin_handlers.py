@@ -19,7 +19,8 @@ router = Router()
 async def stat_message(message: Message):
     if message.text.endswith('start') and message.from_user.id == admin_id:
         await message.answer('цикл запущен')
-        await monitoring()
+        loops = int(message.text.split()[2].strip())
+        await monitoring(loops)
     elif message.text.endswith("all"):
         answer = []
         counter = 1

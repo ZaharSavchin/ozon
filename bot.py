@@ -14,7 +14,7 @@ async def main():
     bot = Bot(token=config.tg_bot.token, parse_mode='HTML')
     dp = Dispatcher()
 
-    await bot.send_message(chat_id=admin_id, text="бот WB перезапущен")
+    await bot.send_message(chat_id=admin_id, text="бот ozon перезапущен")
 
     await set_main_menu(bot)
 
