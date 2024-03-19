@@ -24,7 +24,7 @@ commercial_dict = {}
 #                                  'sent_messages': 5100,
 #                                  'users_go_on_url': 1200}}
 
-r = redis.Redis(host='127.0.0.1', port=6379, db=7)
+r = redis.Redis(host='127.0.0.1', port=6379, db=3)
 
 
 commercial_dict_json = r.get('commercial_dict')
