@@ -1,3 +1,5 @@
+import json
+
 from database.database import users_items, save_users_items
 from services.search_function import get_price, main_search, bot, get_item
 import asyncio
@@ -13,16 +15,20 @@ async def monitoring(loops):
                     try:
                         # actual_price = await get_price(list_of_items[0], item_id)
                         # actual_price_float = actual_price.pop()
-                        data = await get_item(item_id=item_id)
-                        actual_price = float(data['offers']['price'])
-                        name = data['name']
+                        content = await get_item(item_id=item_id)
+                        dict_ = content['seo']['script'][0]
+                        for k, v in dict_.items():
+                            res = json.loads(v)
+                            actual_price = float(res["offers"]["price"])
+                            name = res["name"]
+                            break
                         if actual_price < price:
                             try:
                                 sale = price - actual_price
                                 await bot.send_message(chat_id=user_id, text=f"цена товара '{name}' (Артикул: {item_id})"
                                                                              f" снизилась на {round(sale, 2)} "
                                                                              f"{list_of_items[0]}")
-                                await main_search(item_id, user_id, data=data)
+                                await main_search(item_id, user_id, data=content)
                             except Exception as error:
                                 print(error)
                     except Exception as e:
