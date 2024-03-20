@@ -22,7 +22,7 @@ async def monitoring(loops):
                             actual_price = float(res["offers"]["price"])
                             name = res["name"]
                             break
-                        if actual_price < price:
+                        if actual_price < price and actual_price > 0:
                             try:
                                 sale = price - actual_price
                                 await bot.send_message(chat_id=user_id, text=f"цена товара '{name}' (Артикул: {item_id})"
@@ -31,11 +31,15 @@ async def monitoring(loops):
                                 await main_search(item_id, user_id, data=content)
                             except Exception as error:
                                 print(error)
+                        if actual_price == 0:
+                            await bot.send_message(chat_id=admin_id, text='пауза 40мин')
+                            await asyncio.sleep(2400)
                     except Exception as e:
                         print(e)
-            await asyncio.sleep(1)
+                    await asyncio.sleep(5)
+            await asyncio.sleep(5)
         loop_counter += 1
         if loop_counter % loops == 0 or loop_counter == 1:
             await bot.send_message(chat_id=admin_id, text=f"{loop_counter}", disable_notification=True)
-        await asyncio.sleep(1)
+        await asyncio.sleep(5)
 
