@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from environs import Env
 
-admin_id = 6031519620
+admin_id = 1303113402
 
 
 @dataclass
